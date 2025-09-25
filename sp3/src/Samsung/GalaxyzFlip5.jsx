@@ -5,8 +5,7 @@ function DataScanner() {
   const [scanResults, setScanResults] = useState([]);
   const [scanActive, setScanActive] = useState(true);
 
-
-
+  
   useEffect(() => {
     const results = [
       "Found: user_credentials.txt",
