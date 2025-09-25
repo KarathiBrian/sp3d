@@ -1,0 +1,56 @@
+.matrix-root {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+}
+
+.matrix-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.denied-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #f00;
+  padding: 20px;
+  text-align: center;
+  color: #f00;
+  font-family: "Courier New", monospace;
+  animation: shake 0.5s;
+}
+
+.denied-popup h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.denied-popup p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.denied-popup button {
+  background: #f00;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.denied-popup button:hover {
+  background: #c00;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate(-50%, -50%); }
+  25% { transform: translate(-55%, -50%); }
+  50% { transform: translate(-45%, -50%); }
+  75% { transform: translate(-53%, -50%); }
+}

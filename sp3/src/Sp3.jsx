@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import "./Sp3.css";
 // import img1 from "../assets/2.jpeg";
@@ -67,11 +68,32 @@ function IntroSplash({ duration = 5000 }) {
 
 // -------- Timer Component --------
 function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState(16 * 3600); // 16 hours in seconds
+  const [timeLeft, setTimeLeft] = useState(() => {
+    // Check if expiration time is stored in localStorage
+    const storedExpiration = localStorage.getItem("timerExpiration");
+    const expirationTime = storedExpiration
+      ? new Date(parseInt(storedExpiration))
+      : new Date("2025-09-26T09:37:00+03:00"); // Tomorrow at 9:37 AM EAT
+
+    // If no stored expiration, set it
+    if (!storedExpiration) {
+      localStorage.setItem("timerExpiration", expirationTime.getTime());
+    }
+
+    // Calculate initial time left in seconds
+    const now = new Date();
+    const diff = Math.max(0, Math.floor((expirationTime - now) / 1000));
+    return diff;
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => {
+        const now = new Date();
+        const expirationTime = new Date(parseInt(localStorage.getItem("timerExpiration")));
+        const diff = Math.max(0, Math.floor((expirationTime - now) / 1000));
+        return diff;
+      });
     }, 1000);
 
     return () => clearInterval(timer);
@@ -225,7 +247,7 @@ function HackPrank6Inner() {
   ];
 
   const micRecordings = Array.from({ length: 10 }, (_, i) => `Recording_${i + 1}.mp3`);
-//   const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
+  // const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 
   return (
     <div className="hack-root">
@@ -245,9 +267,6 @@ function HackPrank6Inner() {
         </nav>
       </aside>
 
-      
-
-      
       <main className="main-panel">
         {activeTab === "dashboard" && (
           <div className="panel">
